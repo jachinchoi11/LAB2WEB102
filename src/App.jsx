@@ -3,25 +3,30 @@ import './App.css'
 import Card from "./components/Card";
 
 const flashcards = [
-  {Q: "What is the time complexity of inserting an element in a Binary Search Tree (BST)?", A: "The average time complexity is O(log n), but in the worst case (if the tree becomes unbalanced), it can degrade to O(n)."}, 
-  {Q:"What is a Linked List?" , A:"A linked list is a linear data structure where elements are stored in nodes, and each node points to the next. Unlike arrays, linked lists don't need contiguous memory."}, 
-  {Q:"Explain the difference between depth-first search (DFS) and breadth-first search (BFS)", A:"DFS explores as far as possible along each branch before backtracking (LIFO). BFS explores all the neighbors of a node level by level (FIFO)."}, 
-  {Q: "What is the principle of encapsulation in OOP?", A: "Encapsulation is the practice of keeping fields (attributes) within a class private and providing access through public methods to ensure data integrity."}, 
-  {Q:" What is the space complexity of a merge sort algorithm?", A:"Merge sort has a space complexity of O(n), due to the additional space required for the temporary arrays used during merging."}, 
-  {Q: "What is a stack, and how does it work?", A: " A stack is a LIFO (Last In, First Out) data structure where elements are added and removed from the top. Common operations include push, pop, and peek."}, 
-  {Q:" Describe inheritance in object-oriented programming.",A: " Inheritance allows a class (child) to inherit properties and behaviors (methods) from another class (parent), facilitating code reuse and organization."},
-  {Q: "What is the difference between a queue and a priority queue?", A: "A queue is FIFO (First In, First Out), while in a priority queue, elements are dequeued based on priority rather than the order they were enqueued."}, 
-  {Q: " What is a hash table, and how does it handle collisions?", A:"A hash table is a data structure that maps keys to values using a hash function. Collisions (when two keys map to the same index) are handled using methods like chaining or open addressing."}, 
-  {Q: "What is polymorphism in OOP?", A: "Polymorphism allows objects of different classes to be treated as objects of a common parent class, particularly through method overriding and overloading, enabling flexibility in code execution."}
+  { Q: "What is the average time complexity of inserting an element in a Binary Search Tree (BST)?", A: "O(log n)" }, 
+  { Q: "What is a Linked List?", A: "structure" }, 
+  { Q: "Which traversal method explores as far as possible along each branch before backtracking?", A: "DFS" }, 
+  { Q: "What is the principle of keeping fields private in OOP?", A: "Encapsulation" }, 
+  { Q: "What is the space complexity of the merge sort algorithm?", A: "O(n)" }, 
+  { Q: "Which data structure follows the LIFO principle?", A: "Stack" }, 
+  { Q: "What is the concept of a child class inheriting properties from a parent class?", A: "Inheritance" }, 
+  { Q: "Which data structure follows the FIFO principle?", A: "Queue" }, 
+  { Q: "What data structure uses a hash function to map keys to values?", A: "HashTable" }, 
+  { Q: "What OOP concept allows objects of different classes to be treated as the same type?", A: "Polymorphism" }
 ];
 
 function App() {
   const [currentCard, setCurrentCard] = useState(0)
 
   const nextCard = () => {
-    const rand = Math.floor(Math.random() *flashcards.length);
-    setCurrentCard(rand);
+    const next = ((prevCard) => (prevCard + 1) % flashcards.length);
+    setCurrentCard(next);
   };
+  const prevCard = () => {
+    const prev = ((prevCard) => (prevCard - 1 + flashcards.length) % flashcards.length);
+    setCurrentCard(prev);
+  };
+  
 
   return (
       <div className="App">
@@ -29,7 +34,7 @@ function App() {
     <h2>This will test your knowledge on data structures, algorithms and OOP fundamentals.</h2>
     <h2>Number of Flashcards: {flashcards.length}</h2>
       <div className = "card-container">
-       <Card card ={flashcards[currentCard]} nextCard = {nextCard}/>
+       <Card card ={flashcards[currentCard]} nextCard = {nextCard} prevCard = {prevCard}/>
       </div>
     </div>
   )
